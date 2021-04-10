@@ -43,5 +43,5 @@ html, body, canvas {
 }
 
 .notSupportedMessage em {
-    color: #888;
+    color: deeppink;
 }

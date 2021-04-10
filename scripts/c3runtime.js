@@ -3828,7 +3828,7 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "Done",
 		() => 0.2,
 		() => "Offline",
-		() => "Two Player",
+		() => "Multiplayer",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("P2 - ", v0.GetValue());
@@ -4023,8 +4023,8 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "Easy",
 		() => "HARD",
 		() => "Hard",
-		() => "TWO PLAYER",
-		() => "PLAY ONLINE",
+		() => "Multiplayer",
+		() => "Challenging",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0("HUD") - 75);
@@ -4045,7 +4045,7 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "text-align",
 		() => "center",
 		() => "color",
-		() => "white",
+		() => "black",
 		() => "font-size",
 		() => "35px",
 		() => "INVITE",
