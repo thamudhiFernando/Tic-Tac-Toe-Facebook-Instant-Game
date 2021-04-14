@@ -3706,7 +3706,7 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "Reset",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => and("P1 - ", v0.GetValue());
+			return () => and("Guest - ", v0.GetValue());
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -3723,7 +3723,7 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 1);
 		},
-		() => "P1 TURN",
+		() => "Guest TURN",
 		() => "X",
 		() => "CPU",
 		() => 2,
@@ -3755,8 +3755,8 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "WinO",
 		() => "AI Wins",
 		() => "AI",
-		() => "P1 Wins",
-		() => "P1",
+		() => "Guest Wins",
+		() => "Guest",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0);
@@ -4030,8 +4030,8 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 			return () => (f0("HUD") - 75);
 		},
 		() => -10,
-		() => "P1 WINS",
-		() => "P2 WINS",
+		() => "Guest1 WINS",
+		() => "Guest2 WINS",
 		() => "AI WINS",
 		() => "Play interesting and challenging boards games",
 		() => "Play Board from Shepherd Games",
@@ -4051,7 +4051,7 @@ this._stage=0;this._stageTimeLeft+=this._onTime}this._runtime.UpdateRender()}}Ge
 		() => "INVITE",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => ("I'm challening you in Tic Tac Toe - Join code " + v0.GetValue());
+			return () => ("I'm challenging you in Tic Tac Toe - Join code " + v0.GetValue());
 		},
 		() => "JOIN",
 		() => "PLEASE ENTER THE CODE",
