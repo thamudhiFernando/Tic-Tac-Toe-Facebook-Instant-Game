@@ -29266,6 +29266,7 @@ self.C3.Gfx = {};
     C3.Condition = class Condition extends C3.DefendedBase {
         constructor(eventBlock, data, index) {
             super();
+            console.log('Condition data: ' + data);
             this._eventBlock = eventBlock;
             this._runtime = eventBlock.GetRuntime();
             this._index = index;
@@ -52049,5 +52050,4 @@ self["C3_Shaders"] = {};
 
     self.C3.ScriptsInEvents = scriptsInEvents;
 }
-
 
