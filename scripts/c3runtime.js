@@ -52034,11 +52034,7 @@ self["C3_Shaders"] = {};
             const f0 = p._GetNode(0).GetBoundMethod();
             return () => (f0("HUD") + 75);
         },
-        () => "SampleArcade",
-        p => {
-            const f0 = p._GetNode(0).GetBoundMethod();
-            return () => (f0("HUD") + 75);
-        }
+        () => "SampleArcade"
     ];
 }
 
