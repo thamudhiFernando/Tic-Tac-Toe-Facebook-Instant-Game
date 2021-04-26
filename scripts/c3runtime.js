@@ -51516,6 +51516,7 @@ self["C3_Shaders"] = {};
         {TextInputs: 0},
         {Btn: 0},
         {BtnAudio: 0},
+        {DollarIcon: 0},
         {FirstTime: 0},
         {AI: 0},
         {Rand: 0},
