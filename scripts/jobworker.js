@@ -1,12 +1,11 @@
-'use strict';
+"use strict";
 self.dispatchPort = null;
 self.outputPort = null;
 self.workerNumber = -1;
 self.activeJobId = null;
-self.sentBlobs = new Map;
-self.sentBuffers = new Map;
+self.sentBlobs = new Map();
+self.sentBuffers = new Map();
 self.JobHandlers = {};
-
 function FlipImageData(data, width, height) {
     const stride = width * 4;
     const tempRow = new Uint8Array(stride);
@@ -17,10 +16,9 @@ function FlipImageData(data, width, height) {
         const bottomRow = new Uint8Array(imageBuffer, bottomY * stride, stride);
         tempRow.set(topRow);
         topRow.set(bottomRow);
-        bottomRow.set(tempRow)
+        bottomRow.set(tempRow);
     }
 }
-
 function UnpremultiplyImageData(data) {
     for (let ptr = 0, len = data.length; ptr < len; ptr += 4) {
         const a = data[ptr + 3];
@@ -28,10 +26,9 @@ function UnpremultiplyImageData(data) {
         const scale = 255 / a;
         data[ptr] *= scale;
         data[ptr + 1] *= scale;
-        data[ptr + 2] *= scale
+        data[ptr + 2] *= scale;
     }
 }
-
 self.JobHandlers["ProcessImageData"] = function (params) {
     const buffer = params["buffer"];
     const data = new Uint8Array(buffer);
@@ -39,9 +36,9 @@ self.JobHandlers["ProcessImageData"] = function (params) {
     const height = params["height"];
     if (params["flipY"]) FlipImageData(data, width, height);
     if (params["unpremultiply"]) UnpremultiplyImageData(data);
-    return {result: buffer, transferables: [buffer]}
+    return { result: buffer, transferables: [buffer] };
 };
-self.addEventListener("message", e => {
+self.addEventListener("message", (e) => {
     const msg = e.data;
     const type = msg["type"];
     switch (type) {
@@ -56,71 +53,82 @@ self.addEventListener("message", e => {
             return;
         default:
             console.error("unknown message '" + type + "'");
-            return
+            return;
     }
 });
-
 function SendReady() {
-    self.dispatchPort.postMessage({"type": "ready"});
-    self.outputPort.postMessage({"type": "ready"})
+    self.dispatchPort.postMessage({ type: "ready" });
+    self.outputPort.postMessage({ type: "ready" });
 }
-
 function SendError(isBroadcast, e) {
-    if (!isBroadcast) self.outputPort.postMessage({"type": "error", "jobId": self.activeJobId, "error": e.toString()});
-    SendDone()
+    if (!isBroadcast)
+        self.outputPort.postMessage({
+            type: "error",
+            jobId: self.activeJobId,
+            error: e.toString(),
+        });
+    SendDone();
 }
-
 function SendResult(isBroadcast, ret) {
     if (!isBroadcast) {
         const transferables = ret.transferables || [];
-        self.outputPort.postMessage({"type": "result", "jobId": self.activeJobId, "result": ret.result}, transferables)
+        self.outputPort.postMessage(
+            { type: "result", jobId: self.activeJobId, result: ret.result },
+            transferables
+        );
     }
-    SendDone()
+    SendDone();
 }
-
 function SendDone() {
     self.activeJobId = null;
-    self.dispatchPort.postMessage({"type": "done"})
+    self.dispatchPort.postMessage({ type: "done" });
 }
-
 function SendProgress(val) {
-    self.outputPort.postMessage({"type": "progress", "jobId": self.activeJobId, "progress": val})
+    self.outputPort.postMessage({
+        type: "progress",
+        jobId: self.activeJobId,
+        progress: val,
+    });
 }
-
 function OnDispatchWorkerMessage(e) {
     const msg = e.data;
     const type = msg["type"];
     if (type === "_import_scripts") {
         importScripts(...msg["scripts"]);
-        return
+        return;
     } else if (type === "_send_blob") {
         self.sentBlobs.set(msg["id"], msg["blob"]);
-        return
+        return;
     } else if (type === "_send_buffer") {
         self.sentBuffers.set(msg["id"], msg["buffer"]);
-        return
+        return;
     } else if (type === "_testMessageChannel") {
-        self.outputPort.postMessage({"type": "_testMessageChannelOk"});
-        return
+        self.outputPort.postMessage({ type: "_testMessageChannelOk" });
+        return;
     } else if (type === "_ready") {
         SendReady();
-        return
+        return;
     }
     const jobId = msg["jobId"];
-    const isBroadcast =
-        msg["isBroadcast"];
+    const isBroadcast = msg["isBroadcast"];
     const params = msg["params"];
     let ret;
     self.activeJobId = jobId;
     if (!self.JobHandlers.hasOwnProperty(type)) {
         console.error(`no handler for message type '${type}'`);
-        return
+        return;
     }
     try {
-        ret = self.JobHandlers[type](params)
+        ret = self.JobHandlers[type](params);
     } catch (e) {
         SendError(isBroadcast, "Exception in job handler: " + e);
-        return
+        return;
     }
-    if (ret && ret.then) ret.then(asyncRet => SendResult(isBroadcast, asyncRet)).catch(err => SendError(isBroadcast, "Rejection in job handler: " + err)); else SendResult(isBroadcast, ret)
-};
+    if (ret && ret.then)
+        ret
+            .then((asyncRet) => SendResult(isBroadcast, asyncRet))
+            .catch((err) =>
+                SendError(isBroadcast, "Rejection in job handler: " + err)
+            );
+    else SendResult(isBroadcast, ret);
+}

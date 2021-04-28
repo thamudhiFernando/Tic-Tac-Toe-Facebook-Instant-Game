@@ -56427,6 +56427,7 @@ self["C3_Shaders"] = {};
             C3.Plugins.System.Acts.SetVar,
             C3.Plugins.Text.Acts.SetText,
             C3.Plugins.Text.Acts.SetVisible,
+            C3.Plugins.Sprite.Acts.SetAnimFrame,
             C3.Plugins.System.Cnds.CompareVar,
             C3.Plugins.System.Exps.choose,
             C3.Plugins.System.Cnds.TriggerOnce,
@@ -56435,7 +56436,6 @@ self["C3_Shaders"] = {};
             C3.Plugins.Function.Cnds.OnFunction,
             C3.Behaviors.Flash.Acts.Flash,
             C3.Plugins.System.Cnds.Else,
-            C3.Plugins.Sprite.Acts.SetAnimFrame,
             C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
             C3.Plugins.Sprite.Acts.SetOpacity,
             C3.Plugins.Arr.Acts.SetXY,
@@ -56661,6 +56661,20 @@ self["C3_Shaders"] = {};
         { Button: 0 },
         { cashAmountText: 0 },
         { cashAmountText2: 0 },
+        { Text: 0 },
+        { Sprite: 0 },
+        { Text5: 0 },
+        { Text6: 0 },
+        { background1: 0 },
+        { Background2: 0 },
+        { Background3: 0 },
+        { Background5: 0 },
+        { Board2: 0 },
+        { Board1: 0 },
+        { Board3: 0 },
+        { titleImage: 0 },
+        { TxtApp: 0 },
+        { EasyTxt: 0 },
         { TextsOther: 0 },
         { TextInputs: 0 },
         { Btn: 0 },
@@ -56720,6 +56734,7 @@ self["C3_Shaders"] = {};
         { AndroidBannerAd: 0 },
         { AndroidAdInter: 0 },
         { AndroidAdReward: 0 },
+        { BackgroundImage: 0 },
     ];
 }
 
@@ -56795,6 +56810,14 @@ self["C3_Shaders"] = {};
         () => "Load",
         () => "Game",
         () => "",
+        (p) => {
+            const v0 = p._GetNode(0).GetVar();
+            return () => 50 + v0.GetValue() * 10;
+        },
+        (p) => {
+            const v0 = p._GetNode(0).GetVar();
+            return () => v0.GetValue();
+        },
         () => 0,
         () => 1,
         (p) => {
@@ -56835,10 +56858,6 @@ self["C3_Shaders"] = {};
         () => 8,
         () => 9,
         () => "Moves",
-        (p) => {
-            const v0 = p._GetNode(0).GetVar();
-            return () => v0.GetValue();
-        },
         () => 100,
         (p) => {
             const n0 = p._GetNode(0);
@@ -57117,16 +57136,10 @@ self["C3_Shaders"] = {};
             return () => 720 * v0.GetValue();
         },
         () => "main",
-        (p) => {
-            const v0 = p._GetNode(0).GetVar();
-            return () => v0.GetValue() * 10;
-        },
-        () => "EASY",
-        () => "Easy",
-        () => "HARD",
-        () => "Hard",
-        () => "TWO PLAYER",
-        () => "PLAY ONLINE",
+        () => "ARCADE",
+        () => "SETTINGS",
+        () => "MULTIPLAYER",
+        () => "CHALLENGING",
         (p) => {
             const f0 = p._GetNode(0).GetBoundMethod();
             return () => f0("HUD") - 75;
@@ -57147,9 +57160,9 @@ self["C3_Shaders"] = {};
         () => "text-align",
         () => "center",
         () => "color",
-        () => "white",
+        () => "black",
         () => "font-size",
-        () => "35px",
+        () => "27px",
         () => "INVITE",
         (p) => {
             const v0 = p._GetNode(0).GetVar();
@@ -57172,5 +57185,9 @@ self["C3_Shaders"] = {};
             const f0 = p._GetNode(0).GetBoundMethod();
             return () => f0("HUD") + 75;
         },
+        () => "EASY",
+        () => "Easy",
+        () => "HARD",
+        () => "Hard",
     ];
 }
