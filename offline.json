@@ -1,5 +1,5 @@
 {
-  "version": 1619636803291,
+  "version": 1620332177530,
   "fileList": [
     "waker.js",
     "scripts/c3runtime.js",
@@ -10,6 +10,7 @@
     "images/shared-0-sheet1.png",
     "images/shared-0-sheet2.png",
     "images/shared-0-sheet3.png",
+    "images/shared-0-sheet4.png",
     "images/logo-sheet0.png",
     "images/coin-sheet0.png",
     "images/tiledbackground-sheet0.png",

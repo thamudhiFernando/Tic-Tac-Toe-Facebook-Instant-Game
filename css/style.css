@@ -1,19 +1,10 @@
-@font-face {
-    font-family: 'roboto-light';
-    src: url('../fonts/roboto-light.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'roboto-black';
-    src: url('../fonts/roboto-black.ttf') format('truetype');
-}
-
 html, body {
     padding: 0;
     margin: 0;
     overflow: hidden;
-    background: white;
-    color: black;
+
+    background: #ffffff;
+    color: white;
 }
 
 html, body, canvas {
@@ -21,17 +12,16 @@ html, body, canvas {
     touch-action-delay: none;
 }
 
-/*style for notSupportedWrap div*/
 #notSupportedWrap {
     margin: 2em auto 1em auto;
     width: 75%;
     max-width: 45em;
-    border: 2px solid red;
+    border: 2px solid #aaa;
     border-radius: 1em;
     padding: 2em;
-    background-color: black;
+    background-color: #f0f0f0;
     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-    color: white;
+    color: black;
 }
 
 #notSupportedTitle {
@@ -43,5 +33,17 @@ html, body, canvas {
 }
 
 .notSupportedMessage em {
-    color: deeppink;
+    color: #888;
 }
+
+
+@font-face {
+    font-family: 'roboto-light';
+    src: url('fonts/roboto-light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'roboto-black';
+    src: url('fonts/roboto-black.ttf') format('truetype');
+}
+

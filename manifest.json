@@ -6,11 +6,12 @@
   "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#ffffff",
-  "icons": [{
+  "icons": [
+    {
     "src": "icons/icon-16.png",
     "sizes": "16x16",
     "type": "image/png"
-  },
+    },
     {
       "src": "icons/icon-32.png",
       "sizes": "32x32",
