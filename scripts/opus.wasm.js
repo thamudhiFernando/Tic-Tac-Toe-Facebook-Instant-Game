@@ -3,18 +3,18 @@
     var VINT_SIZES = [0, 8, 7, 7, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     var VINT_MASKS = [255, 127, 63, 31, 15, 7, 3, 1, 0];
     var OPUS_SIG = [65, 95, 79, 80, 85, 83];
-
+    
     var _decoder = null;
     var _audioBuffer = null;
     var _inputPointer = null;
     var _outputBuffer = null;
     var _outputPointer = null;
     var _outputOffset = 0;
-
+    
     // Ready promise resolves when onRuntimeInitialized called
     let readyPromiseResolve = null;
     const readyPromise = new Promise(resolve => readyPromiseResolve = resolve);
-
+    
     Module = {
         // When WASM has finished loading, resolve the ready promise
         onRuntimeInitialized: readyPromiseResolve
@@ -29,13 +29,13 @@
     function ParseIntTag(data, position, size)
     {
         switch (size) {
-            case 1:
+            case 1: 
                 return data.getInt8(position);
             case 2:
                 return data.getInt16(position);
             case 3:
                 return ReadInt24(data, position);
-            case 4:
+            case 4: 
                 return data.getInt32(position);
             default:
                 throw new Error("Invalid size");
@@ -63,7 +63,7 @@
         var channels = 1;
         var bufferSize = 2048;
         // the true size should be "duration - codecDelay"
-        // but we also write the "discardpadding" at the end
+        // but we also write the "discardpadding" at the end 
         // of the buffer before discarding it, so we need 1 opus frame of
         // extra space. max size of a frame is 120ms
         var length = CalculateAudioBufferSize(frequency, channels, duration + 120);
@@ -84,17 +84,17 @@
         _decoder = null;
         _outputOffset = 0;
     }
-
+    
     /////////////////////////////////////////////////////////
     // Main job handler
     self.JobHandlers["OpusDecode"] = async function OpusDecode(params)
     {
         // Wait for WASM to finish loading if necessary
         await readyPromise;
-
+        
         // Decode the Opus compressed audio to a float sample buffer and return the ArrayBuffer
         const arrayBuffer = params["arrayBuffer"];
-        ParseMaster(new DataView(arrayBuffer), 0, arrayBuffer.byteLength);
+        ParseMaster(new DataView(arrayBuffer), 0, arrayBuffer.byteLength);  
         const end = _outputOffset;
         DestroyDecoder();
         const outputBuffer = _audioBuffer.buffer.slice(0, end * 4);
@@ -453,17 +453,17 @@ var Runtime = {
             case "double":
                 return 8;
             default:
-            {
-                if (type[type.length - 1] === "*") {
-                    return Runtime.QUANTUM_SIZE
-                } else if (type[0] === "i") {
-                    var bits = parseInt(type.substr(1));
-                    assert(bits % 8 === 0);
-                    return bits / 8
-                } else {
-                    return 0
+                {
+                    if (type[type.length - 1] === "*") {
+                        return Runtime.QUANTUM_SIZE
+                    } else if (type[0] === "i") {
+                        var bits = parseInt(type.substr(1));
+                        assert(bits % 8 === 0);
+                        return bits / 8
+                    } else {
+                        return 0
+                    }
                 }
-            }
         }
     }),
     getNativeFieldSize: (function(type) {
@@ -1378,7 +1378,7 @@ function integrateWasmJS(Module) {
     var method = Module["wasmJSMethod"] || "native-wasm";
     Module["wasmJSMethod"] = method;
     var wasmTextFile = Module["wasmTextFile"] || "opus.wasm.wast";
-    var wasmBinaryFile = Module["wasmBinaryFile"] || self["cr_opusWasmBinaryUrl"] || "opus.wasm.wasm";
+	var wasmBinaryFile = Module["wasmBinaryFile"] || self["cr_opusWasmBinaryUrl"] || "opus.wasm.wasm";
     var asmjsCodeFile = Module["asmjsCodeFile"] || "opus.wasm.temp.asm.js";
     if (typeof Module["locateFile"] === "function") {
         wasmTextFile = Module["locateFile"](wasmTextFile);
@@ -1491,15 +1491,15 @@ function integrateWasmJS(Module) {
             const buffer = self.sentBuffers.get("opus-decoder-wasm");
             if (buffer)
                 return resolve(new Uint8Array(buffer));
-
+                
             const blob = self.sentBlobs.get("opus-decoder-wasm");
             if (!blob)
                 return reject("not yet received opus blob");
-
+            
             const fileReader = new FileReader();
             fileReader.onload = () => resolve(new Uint8Array(fileReader["result"]));
-            fileReader.onerror = () => reject(fileReader["error"]);
-            fileReader.readAsArrayBuffer(blob);
+			fileReader.onerror = () => reject(fileReader["error"]);
+			fileReader.readAsArrayBuffer(blob);
         });
     }
 
