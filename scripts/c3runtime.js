@@ -4276,7 +4276,10 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		() => "P2 Wins",
 		() => "P2",
 		() => "ttt_functions",
-		() => "game",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and("game", v0.GetValue());
+		},
 		() => "Load6",
 		() => "Reset6",
 		() => 10,
