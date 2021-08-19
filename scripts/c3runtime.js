@@ -4310,6 +4310,25 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		() => 35,
 		() => 36,
 		() => "Moves6",
+		() => 44,
+		() => 130,
+		() => -40,
+		() => 40,
+		() => 140,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => add(350, f0(4));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => subtract(n0.ExpObject(), f1(2));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => subtract(n0.ExpObject(), f1(3));
+		},
 		() => "AI6",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4444,11 +4463,9 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		() => 37,
 		() => 38,
 		() => 39,
-		() => 40,
 		() => 41,
 		() => 42,
 		() => 43,
-		() => 44,
 		() => 46,
 		() => 47,
 		() => 48,
@@ -4486,6 +4503,11 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		() => 80,
 		() => 81,
 		() => "Moves9",
+		() => -30,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => add(360, f0(4));
+		},
 		() => "AI9",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4748,8 +4770,9 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 50);
+			return () => (n0.ExpObject() - 44);
 		},
+		() => 350,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject(4, 0);
@@ -4868,8 +4891,18 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() + 50);
+			return () => (n0.ExpObject() - 45);
 		},
+		() => 480,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 40);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 40);
+		},
+		() => 490,
 		() => "ttt_functions6",
 		() => "Offline9",
 		() => "ttt_9",
@@ -4969,6 +5002,11 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 		() => "C81Peer",
 		() => "CommonPlayer9",
 		() => "CheckWinner9",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 30);
+		},
+		() => 360,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject(0, 6);
@@ -5150,6 +5188,10 @@ WaypointYAt(i){return this._GetWaypointYAt(i)}}};
 			return () => n0.ExpObject(8, 8);
 		},
 		() => 500,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 30);
+		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject(1.7);
